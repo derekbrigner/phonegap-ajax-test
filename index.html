@@ -1,39 +1,44 @@
 <!DOCTYPE html> 
-<html>
+<html lang="en">
 	<head>
-		<link href="css/main.css" rel="stylesheet">
-	</head>
-	<body>
-        
-        <div id="content">Something to show.</div>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
         
 		<script src="phonegap.js"></script>
 		<script src="js/jquery.min.js"></script>
         <script>
-            function onDeviceReady(){
-                $.ajax({
-                    url: 'http://echo.jsontest.com/key/value/one/two',
-                    type: "GET", 
-                    dataType: 'jsonp', 
-                    jsonp: 'callback', 
-                    jsonpCallback: 'callbackFunction', 
-                    success: function(data){ 
-                        $('.content').append(data.toString());
-                    } 
+            $(document).ready(function(){
+                $(document).bind('deviceready', function(){
+                    //Phonegap ready
+                    onDeviceReady();
                 });
-            }
             
-            function callbackFunction(data) { 
-                $('.content').append(data.toString());
-                    
-                return; 
-            }
+                var output = $('#output');
             
-            $(document).ready(
-                function() {
-                    document.addEventListener('deviceready', onDeviceReady, true);
+                $.ajax({
+                    url: 'http://samcroft.co.uk/demos/updated-load-data-into-phonegap/landmarks.php',
+                    dataType: 'jsonp',
+                    jsonp: 'jsoncallback',
+                    timeout: 5000,
+                    success: function(data, status){
+                        $.each(data, function(i,item){ 
+                            var landmark = '<h1>'+item.name+'</h1>'
+                            + '<p>'+item.latitude+'<br>'
+                            + item.longitude+'</p>';
+            
+                            output.append(landmark);
+                        });
+                    },
+                    error: function(){
+                       output.text('There was an error loading the data.');
+                    }
+                });
             });
         </script>
+	</head>
+	<body>
+        
+        <div id="output"></div>
         
 	</body>
 </html>
