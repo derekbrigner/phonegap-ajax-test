@@ -5,19 +5,34 @@
 	</head>
 	<body>
         
-        <div id="content"></div>
+        <div id="content">Something to show.</div>
         
 		<script src="phonegap.js"></script>
 		<script src="js/jquery.min.js"></script>
         <script>
-            $(function(){
+            function onDeviceReady(){
                 $.ajax({
                     url: 'http://echo.jsontest.com/key/value/one/two',
-                    success: function(data) {
+                    type: "GET", 
+                    dataType: 'jsonp', 
+                    jsonp: 'callback', 
+                    jsonpCallback: 'callbackFunction', 
+                    success: function(data){ 
                         $('.content').append(data.toString());
-                    }
+                    } 
                 });
-            })
+            }
+            
+            function callbackFunction(data) { 
+                $('.content').append(data.toString());
+                    
+                return; 
+            }
+            
+            $(document).ready(
+                function() {
+                    document.addEventListener('deviceready', onDeviceReady, true);
+            });
         </script>
         
 	</body>
