@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<link href="css/main.css" rel="stylesheet">
+	</head>
+	<body>
+        
+        <div id="content"></div>
+        
+		<script src="phonegap.js"></script>
+		<script src="js/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $.ajax({
+                    url: 'http://echo.jsontest.com/key/value/one/two',
+                    success: function(data) {
+                        $('.content').append(data.toString());
+                    }
+                });
+            })
+        </script>
+        
+	</body>
+</html>
