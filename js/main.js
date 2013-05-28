@@ -19,8 +19,8 @@ $(document).ready(function(){
                 output.append(name+title);
             });
         },
-        error: function(){
-           output.text('There was an error loading the data.');
+        error: function(d, s, e){
+           output.text(d.toString()+' '+s.toString()+' '+e.toString());
         }
     });
 });
