@@ -7,7 +7,7 @@ $(document).ready(function(){
     var output = $('#output');
 
     $.ajax({
-        url: 'http://lifeafterracing.ustrotting.com/landmarks.cfm',
+        url: 'http://lifeafterracing.ustrotting.com/landmarks.cfc?method=remoteGetLandMarks',
         dataType: 'jsonp',
         jsonp: 'jsoncallback',
         timeout: 5000,
