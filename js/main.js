@@ -14,11 +14,12 @@ $(document).ready(function(){
 		contentType: "application/json",
 		dataType: 'jsonp',
 		success: function(data) {
-            var landmark = '<h1>'+item.NAME+'</h1>'
-            + '<p>'+item.LATITUDE+'<br>'
-            + item.LONGITUDE+'</p>';
-
-            output.append(landmark);
+			$.each(data, function(i,item){ 
+                var landmark = '<h1>'+item.NAME+'</h1>'
+                + '<p>'+item.LATITUDE+'<br>'
+                + item.LONGITUDE+'</p>';
+                output.append(landmark);
+			});
 		},
 		error: function(e) {
 			console.log(e.message);
