@@ -5,23 +5,23 @@ $(document).ready(function(){
     });
 
     var output = $('#output');
+    var url = 'http://lifeafterracing.ustrotting.com/landmarks.cfc?method=remoteGetLandMarks&callback=?';
+	
+	$.ajax({
+		type: 'GET',
+		url: url,
+		jsonpCallback: 'jsonCallback',
+		contentType: "application/json",
+		dataType: 'jsonp',
+		success: function(data) {
+            var landmark = '<h1>'+item.NAME+'</h1>'
+            + '<p>'+item.LATITUDE+'<br>'
+            + item.LONGITUDE+'</p>';
 
-    $.ajax({
-        url: 'http://lifeafterracing.ustrotting.com/landmarks.cfc?method=remoteGetLandMarks',
-        dataType: 'jsonp',
-        jsonp: 'jsoncallback',
-        timeout: 5000,
-        success: function(data, status){
-            $.each(data, function(i,item){ 
-				var landmark = '<h1>'+item.name+'</h1>'
-				+ '<p>'+item.latitude+'<br>'
-				+ item.longitude+'</p>';
-
-				output.append(landmark);
-			});
-        },
-        error: function(d, s, e){
-           output.text(d.toString()+' '+s.toString()+' '+e.toString());
-        }
-    });
+            output.append(landmark);
+		},
+		error: function(e) {
+			console.log(e.message);
+		}
+	});
 });
